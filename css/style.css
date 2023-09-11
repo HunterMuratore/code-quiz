@@ -66,6 +66,7 @@ button {
     border: none;
     border-radius: 10px;
     background: rgb(136,48,243) linear-gradient(199deg, rgba(136,48,243,1) 0%, rgba(66,242,160,1) 59%, rgba(148,249,202,1) 100%);
+    font-size: medium;
     padding: 15px;
     transition: padding .4s ease-in-out;
 }
@@ -77,33 +78,21 @@ button:hover {
 .answer-button {
     background: rgb(136,48,243) linear-gradient(199deg, rgba(148,249,202,1) 0%, rgba(66,242,160,1) 41%, rgba(136,48,243,1) 100%);
     text-align: left;
-    font-size: medium;
-}
-
-.question-1 {
-    /* display: none; */
-    display: flex;
-    flex-direction: column;
-}
-
-.question-2 {
-    display: none;
-}
-
-.question-3 {
-    display: none;
-}
-
-.question-4 {
-    display: none;
-}
-
-.question-5 {
-    display: none;
 }
 
 .question {
+    flex-direction: column;
+    display: none;
+}
+
+.question-text {
     font-size: 28px;
+    margin: 0 8px;
+}
+
+.question-num {
+    font-size: 32px;
+    text-align: left;
     margin: 0 8px;
 }
 
@@ -112,6 +101,7 @@ button:hover {
     font-size: large;
     color: rgb(255, 255, 255);
     opacity: 75%;
+    display: none;
 }
 
 /* MEDIA QUERIES */
