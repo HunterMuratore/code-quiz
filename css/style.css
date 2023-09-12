@@ -96,11 +96,16 @@ button:hover {
     margin: 0 8px;
 }
 
-.answer {
+.answer-result {
     text-align: left;
     font-size: large;
+    margin-top: 30px;
     color: rgb(255, 255, 255);
     opacity: 75%;
+    display: none;
+}
+
+#end-quiz {
     display: none;
 }
 
