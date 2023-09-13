@@ -3,9 +3,11 @@ function startQuiz() {
     document.querySelector(".start").style.display = "none";
     document.querySelector("#start-button").style.display = "none";
     document.querySelector("#question-1").style.display = "flex";
-    generateAnswers(question_1, answers.question_1_ans)
+    generateAnswers(document.querySelector('#question-1'), answers.question_1_ans)
+    // Start timer
 }
 
+// Hides the previous section and populates and displays the question/answers for the next section
 function nextQuestion (start, next, result, ans) {
     ansResult(result)
 
@@ -18,11 +20,13 @@ function nextQuestion (start, next, result, ans) {
     document.querySelector(next).style.display = "flex";
 }
 
+// Checks their answer to see if it's correct. If wrong subtract 10 seconds from the timer
 function ansResult (result) {
     if (result === true) {
         document.querySelector('.answer-result').innerHTML = 'Correct!';
     } else {
         document.querySelector('.answer-result').innerHTML = 'Incorrect';
+        // decrease timer by 10 seconds
     }
 }
 
@@ -43,9 +47,3 @@ var answers = {
     question_4_ans: ['1. Is this the Answer?', '2. Or is this the Answer?', '3. Maybe this is the Answer?', '4. Wait I think this might be the Answer?'],
     question_5_ans: ['1. Is this the Answer?', '2. Or is this the Answer?', '3. Maybe this is the Answer?', '4. Wait I think this might be the Answer?'],
 }
-
-var question_1 = document.querySelector('#question-1');
-var question_2 = document.querySelector('#question-2');
-var question_3 = document.querySelector('#question-3');
-var question_4 = document.querySelector('#question-4');
-var question_5 = document.querySelector('#question-5');

@@ -106,7 +106,20 @@ button:hover {
 }
 
 #end-quiz {
+    flex-direction: column;
     display: none;
+}
+
+.initials {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.initials button {
+    padding: 5px 10px;
+    font-size: small;
+    margin-left: 10px;
 }
 
 /* MEDIA QUERIES */
