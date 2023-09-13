@@ -17,48 +17,12 @@
             <h1>Coding Quiz</h1>
             <h2>Answer the following code-related questions within the given time limit. 
                 Be careful, wrong answers will deduct 10 seconds from the timer!</h2>
-            <button id='start-button' class="start-button" onclick="startQuiz()">Start Quiz</button>
+            <button id='start-button' class="start-button">Start Quiz</button>
         </section>
-        <section id="question-1" class="question">
-            <p class="question-num">Question 1</p>
-            <p class="question-text">This is question #1, answer it please.</p>
-            <button class="answer-button" onclick="nextQuestion('#question-1', '#question-2', true, answers.question_2_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-1', '#question-2', false, answers.question_2_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-1', '#question-2', false, answers.question_2_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-1', '#question-2', false, answers.question_2_ans)"></button>
+
+        <section class="question">
         </section>
-        <section id="question-2" class="question">
-            <p class="question-num">Question 2</p>
-            <p class="question-text">This is question #2, answer it please.</p>
-            <button class="answer-button" onclick="nextQuestion('#question-2', '#question-3', false, answers.question_3_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-2', '#question-3', true, answers.question_3_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-2', '#question-3', false, answers.question_3_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-2', '#question-3', false, answers.question_3_ans)"></button>
-        </section>
-        <section id="question-3" class="question">
-            <p class="question-num">Question 3</p>
-            <p class="question-text">This is question #3, answer it please.</p>
-            <button class="answer-button" onclick="nextQuestion('#question-3', '#question-4', false, answers.question_4_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-3', '#question-4', false, answers.question_4_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-3', '#question-4', true, answers.question_4_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-3', '#question-4', false, answers.question_4_ans)"></button>
-        </section>
-        <section id="question-4" class="question">
-            <p class="question-num">Question 4</p>
-            <p class="question-text">This is question #4, answer it please.</p>
-            <button class="answer-button" onclick="nextQuestion('#question-4', '#question-5', true, answers.question_5_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-4', '#question-5', false, answers.question_5_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-4', '#question-5', false, answers.question_5_ans)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-4', '#question-5', false, answers.question_5_ans)"></button>
-        </section>
-        <section id="question-5" class="question">
-            <p class="question-num">Question 5</p>
-            <p class="question-text">This is question #5, answer it please.</p>
-            <button class="answer-button" onclick="nextQuestion('#question-5', '#end-quiz', false)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-5', '#end-quiz', false)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-5', '#end-quiz', false)"></button>
-            <button class="answer-button" onclick="nextQuestion('#question-5', '#end-quiz', true)"></button>
-        </section>
+
         <section id="end-quiz">
             <h3>Quiz Complete!</h3>
             <p>Your final score is <span class="final-score"></span>.</p>
@@ -67,7 +31,7 @@
                 <button>Submit</button>
             </div>
         </section>
-        <p class="answer-result">Result!</p>
+        <p class="answer-result"></p>
     </main>
 
     <script src="js/script.js"></script>
