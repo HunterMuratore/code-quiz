@@ -81,8 +81,8 @@ button:hover {
 }
 
 .question {
+    display: flex;
     flex-direction: column;
-    display: none;
 }
 
 .question-text {
@@ -96,12 +96,29 @@ button:hover {
     margin: 0 8px;
 }
 
-.answer {
+.answer-result {
     text-align: left;
     font-size: large;
+    margin-top: 30px;
     color: rgb(255, 255, 255);
     opacity: 75%;
+}
+
+#end-quiz {
+    flex-direction: column;
     display: none;
+}
+
+.initials {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.initials button {
+    padding: 5px 10px;
+    font-size: small;
+    margin-left: 10px;
 }
 
 /* MEDIA QUERIES */
