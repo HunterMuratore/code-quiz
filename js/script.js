@@ -1,18 +1,36 @@
 // GLOBAL VARIABLES
+var timer = document.querySelector('.timer');
 var start = document.querySelector('.start');
 var questionSection = document.querySelector('.question');
 var end = document.querySelector('#end-quiz');
 var answerResult = document.querySelector('.answer-result');
 
+var secondsLeft = 60;
+var timeInterval;
 var currentQuestionIndex = 0;
 
-// Start the quiz when the user clicks the button by hidding the start section and displaying the question section
+// Start the quiz when the user clicks the button by hidding the start section and displaying the question section and starting the timer
 function startQuiz(e) {
     var el = e.target;
     if (el.tagName === 'BUTTON') {
         this.style.display = 'none';
         nextQuestion(currentQuestionIndex);
+        startTimer(false);
     }
+}
+
+// Start the 60 second timer and decrease by 1 every second. If it ever hits 0 then display a message and take them to the end quiz section.
+function startTimer (end) {
+    timeInterval = setInterval(function() {
+        secondsLeft--;
+        timer.innerText = 'Time: ' + secondsLeft;
+        if (secondsLeft === 0) {
+            clearInterval(timeInterval);
+            alert("Out Of Time!");
+            currentQuestionIndex = 10000;
+            nextQuestion(currentQuestionIndex);
+        }
+    }, 1000);
 }
 
 function nextQuestion (index) {
@@ -58,13 +76,16 @@ function checkAnswer (e) {
             answerResult.innerText = 'Correct!';
         } else {
             answerResult.innerText = 'Incorrect';
-            // decrease time 
+            secondsLeft -= 10; 
         }
         // Display the next question if there is a next one, otherwise display the end section with the user's score
         if (currentQuestionIndex < questions.length) {
             nextQuestion(currentQuestionIndex);
         } else {
             questionSection.style.display = 'none';
+            timer.innerText = 'Time: ' + secondsLeft;
+            document.querySelector('.final-score').innerText = secondsLeft;
+            clearInterval(timeInterval);
             end.style.display = 'flex';
         }
     }
