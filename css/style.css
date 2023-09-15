@@ -121,6 +121,30 @@ button:hover {
     margin-left: 10px;
 }
 
+.high-scores h1 {
+    margin-bottom: 15px;
+}
+
+.high-score-list {
+    background-color: darkslategrey;
+    color: #fff;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    width: 300px;
+}
+
+.high-score-list li {
+    margin-left: 25px;
+}
+
+.high-score-buttons {
+    display: flex;
+}
+
+.high-score-buttons button:not(:last-child) {
+    margin-right: 10px;
+}
+
 /* MEDIA QUERIES */
 @media (min-width: 950px) {
     .start h2 {

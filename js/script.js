@@ -1,12 +1,15 @@
-// GLOBAL VARIABLES
+// GLOBAL VARIABLES for index.html
 var timer = document.querySelector('.timer');
 var start = document.querySelector('.start');
 var questionSection = document.querySelector('.question');
 var end = document.querySelector('#end-quiz');
 var answerResult = document.querySelector('.answer-result');
 var finalScore = document.querySelector('.final-score');
-var form = document.querySelector('.initials');
 var userInitials = document.querySelector('#user-initials');
+
+// GLOBAL VARIABLES for high-score.html
+var highScores = document.querySelector('.high-scores');
+var highScoreList = document.querySelector('.high-score-list');
 
 var secondsLeft = 60;
 var timeInterval;
@@ -75,6 +78,7 @@ function nextQuestion (index) {
 // End the quiz and take the user straight to the end-quiz section
 function endQuiz() {
     questionSection.style.display = 'none';
+    timer.innerText = 'Time: ' + secondsLeft;
     finalScore.innerText = secondsLeft;
     clearInterval(timeInterval);
     end.style.display = 'flex';
@@ -106,8 +110,58 @@ function checkAnswer (e) {
     }
 }
 
+function getScores() {
+    return JSON.parse(localStorage.getItem('scores')) || [];
+}
+
+// Make sure the user inputs their initials then save their score and redirect them to the high score page
+function addHighScore(e) {
+    e.preventDefault();
+
+    if (userInitials.value == false) {
+        alert('You must input your initials');
+    }
+
+    var score = {
+        initial: userInitials.value,
+        score: secondsLeft
+    }
+
+    var scores = getScores();
+
+    scores.push(score);
+
+    localStorage.setItem('scores', JSON.stringify(scores));
+
+    userInitials.value = '';
+
+    listScores();
+}
+
+// Order all of the scores in local storage and list them from highest to lowest
+function listScores() {
+    // foreach key in localstorage 
+    // var userScore = userInitials.value + ' - ' + finalScore;
+    var scores = getScores();
+
+    // Reset HTML if there are scores in the local storage
+    if (todos.length) {
+        todoOutput.innerHTML = '';
+    }
+
+    scores.forEach(score => {
+        var li = document.createElement('li');
+
+        li.innerHTML = `${score.userInitials} - ${score.secondsLeft}`;
+
+        highScoreList.append(li);
+    });
+}
+
+// EVENT LISTENERS
 start.addEventListener('click', startQuiz);
 questionSection.addEventListener('click', checkAnswer);
+end.addEventListener('submit', addHighScore);
 
 // Object to hold all of the answers to the questions
 var answers = {
