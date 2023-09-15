@@ -4,6 +4,9 @@ var start = document.querySelector('.start');
 var questionSection = document.querySelector('.question');
 var end = document.querySelector('#end-quiz');
 var answerResult = document.querySelector('.answer-result');
+var finalScore = document.querySelector('.final-score');
+var form = document.querySelector('.initials');
+var userInitials = document.querySelector('#user-initials');
 
 var secondsLeft = 60;
 var timeInterval;
@@ -14,22 +17,25 @@ function startQuiz(e) {
     var el = e.target;
     if (el.tagName === 'BUTTON') {
         this.style.display = 'none';
+        startTimer();
         nextQuestion(currentQuestionIndex);
-        startTimer(false);
     }
 }
 
 // Start the 60 second timer and decrease by 1 every second. If it ever hits 0 then display a message and take them to the end quiz section.
-function startTimer (end) {
+function startTimer () {
     timeInterval = setInterval(function() {
-        secondsLeft--;
-        timer.innerText = 'Time: ' + secondsLeft;
-        if (secondsLeft === 0) {
+        // Make sure timer never goes below 0 and end quiz when time is out
+        if (secondsLeft > 0) {
+            secondsLeft--;
+        } else {
             clearInterval(timeInterval);
             alert("Out Of Time!");
-            currentQuestionIndex = 10000;
-            nextQuestion(currentQuestionIndex);
+            endQuiz();
         }
+
+        // Display the time remaining
+        timer.innerText = 'Time: ' + secondsLeft;
     }, 1000);
 }
 
@@ -66,6 +72,14 @@ function nextQuestion (index) {
     currentQuestionIndex++;
 }
 
+// End the quiz and take the user straight to the end-quiz section
+function endQuiz() {
+    questionSection.style.display = 'none';
+    finalScore.innerText = secondsLeft;
+    clearInterval(timeInterval);
+    end.style.display = 'flex';
+}
+
 // Checks their answer to see if it's correct. If wrong subtract 10 seconds from the timer
 function checkAnswer (e) {
     var el = e.target;
@@ -76,17 +90,18 @@ function checkAnswer (e) {
             answerResult.innerText = 'Correct!';
         } else {
             answerResult.innerText = 'Incorrect';
-            secondsLeft -= 10; 
+            if (secondsLeft < 10) {
+                secondsLeft = 0;
+            } else {
+                secondsLeft -= 10;
+            } 
         }
+        
         // Display the next question if there is a next one, otherwise display the end section with the user's score
         if (currentQuestionIndex < questions.length) {
             nextQuestion(currentQuestionIndex);
         } else {
-            questionSection.style.display = 'none';
-            timer.innerText = 'Time: ' + secondsLeft;
-            document.querySelector('.final-score').innerText = secondsLeft;
-            clearInterval(timeInterval);
-            end.style.display = 'flex';
+            endQuiz();
         }
     }
 }
