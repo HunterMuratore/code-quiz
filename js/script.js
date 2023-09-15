@@ -1,4 +1,5 @@
-// GLOBAL VARIABLES for index.html
+// GLOBAL VARIABLES
+var highScoreLinkEl = document.querySelector('#high-scores');
 var timer = document.querySelector('.timer');
 var start = document.querySelector('.start');
 var questionSection = document.querySelector('.question');
@@ -6,10 +7,10 @@ var end = document.querySelector('#end-quiz');
 var answerResult = document.querySelector('.answer-result');
 var finalScore = document.querySelector('.final-score');
 var userInitials = document.querySelector('#user-initials');
-
-// GLOBAL VARIABLES for high-score.html
+var submit = document.querySelector('.submit');
 var highScores = document.querySelector('.high-scores');
 var highScoreList = document.querySelector('.high-score-list');
+var clearScores = document.querySelector('#clear-scores');
 
 var secondsLeft = 60;
 var timeInterval;
@@ -17,6 +18,7 @@ var currentQuestionIndex = 0;
 
 // Start the quiz when the user clicks the button by hidding the start section and displaying the question section and starting the timer
 function startQuiz(e) {
+    e.stopPropagation();
     var el = e.target;
     if (el.tagName === 'BUTTON') {
         this.style.display = 'none';
@@ -25,7 +27,7 @@ function startQuiz(e) {
     }
 }
 
-// Start the 60 second timer and decrease by 1 every second. If it ever hits 0 then display a message and take them to the end quiz section.
+// Start the 60 second timer and decreasse by 1 every second. If it ever hits 0 then display a message and take them to the end quiz section.
 function startTimer () {
     timeInterval = setInterval(function() {
         // Make sure timer never goes below 0 and end quiz when time is out
@@ -43,6 +45,9 @@ function startTimer () {
 }
 
 function nextQuestion (index) {
+    // Remove the View High Scores link from view
+    highScoreLinkEl.innerText = '';
+
     // Reset the question section part of the HTML so that the next questions can be appended to it
     questionSection.innerHTML = '';
 
@@ -78,6 +83,9 @@ function nextQuestion (index) {
 // End the quiz and take the user straight to the end-quiz section
 function endQuiz() {
     questionSection.style.display = 'none';
+    setTimeout(function () {
+        answerResult.style.display = 'none';
+    }, 3000);
     timer.innerText = 'Time: ' + secondsLeft;
     finalScore.innerText = secondsLeft;
     clearInterval(timeInterval);
@@ -110,58 +118,81 @@ function checkAnswer (e) {
     }
 }
 
+// Returns the object array of the local storage data if there is any, otherwise returns empty array
 function getScores() {
     return JSON.parse(localStorage.getItem('scores')) || [];
 }
 
-// Make sure the user inputs their initials then save their score and redirect them to the high score page
+// Make the user inputs their initials then save their score and redirect them to the high score page
 function addHighScore(e) {
     e.preventDefault();
-
-    if (userInitials.value == false) {
-        alert('You must input your initials');
-    }
-
+    // Save the user's score as an object
     var score = {
         initial: userInitials.value,
         score: secondsLeft
     }
 
+    // Retrieve the old scores array from local storage and add the new score to it
     var scores = getScores();
-
     scores.push(score);
 
+    // Overwrite the local storage array with the one with the new score
     localStorage.setItem('scores', JSON.stringify(scores));
-
     userInitials.value = '';
-
     listScores();
-}
+}   
 
 // Order all of the scores in local storage and list them from highest to lowest
 function listScores() {
+    // Hide the end quiz section and display the high score section
+    end.style.display = 'none';
+    answerResult.style.display = 'none';
+    highScores.style.display = 'flex';
+
     // foreach key in localstorage 
-    // var userScore = userInitials.value + ' - ' + finalScore;
     var scores = getScores();
 
     // Reset HTML if there are scores in the local storage
-    if (todos.length) {
-        todoOutput.innerHTML = '';
+    if (scores.length) {
+        highScoreList.innerHTML = '';
+    } else {
+        highScoreList.innerHTML = 'No Scores Yet!'
     }
+
+    // Sorts the user's scores from highest to lowest
+    scores.sort((a, b) => b.score - a.score);
 
     scores.forEach(score => {
         var li = document.createElement('li');
 
-        li.innerHTML = `${score.userInitials} - ${score.secondsLeft}`;
+        li.innerText = `${score.initial} - ${score.score}`;
 
         highScoreList.append(li);
     });
 }
 
+// Remove the high score array from local storage and reset the list
+function clearScoreList() {
+    localStorage.removeItem('scores');
+
+    listScores();
+}
+
+// Take the user to the high score section and display the high score list
+function showHighScores() {
+    start.style.display = 'none';
+    highScoreLinkEl.style.display = 'none';
+    timer.style.display = 'none';
+
+    listScores();
+}
+
 // EVENT LISTENERS
 start.addEventListener('click', startQuiz);
 questionSection.addEventListener('click', checkAnswer);
-end.addEventListener('submit', addHighScore);
+submit.addEventListener('click', addHighScore);
+clearScores.addEventListener('click', clearScoreList);
+highScoreLinkEl.addEventListener('click', showHighScores);
 
 // Object to hold all of the answers to the questions
 var answers = {

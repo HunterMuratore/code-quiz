@@ -34,6 +34,10 @@ header a {
     color: rgb(136,48,243)
 }
 
+header a:hover {
+    cursor: pointer;
+}
+
 header p {
     margin-right: 10%;
     color: rgba(66,242,160,1);
@@ -121,6 +125,12 @@ button:hover {
     margin-left: 10px;
 }
 
+.high-scores {
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+}
+
 .high-scores h1 {
     margin-bottom: 15px;
 }
@@ -129,20 +139,23 @@ button:hover {
     background-color: darkslategrey;
     color: #fff;
     margin-bottom: 15px;
-    line-height: 1.6;
     width: 300px;
 }
 
 .high-score-list li {
-    margin-left: 25px;
+    margin: 0 10px 0 30px;
+    padding: 6px;
+    line-height: .5;
+    text-align: left;
 }
 
-.high-score-buttons {
-    display: flex;
+.high-score-buttons:not(:last-child) {
+    margin-right: 15px;
 }
 
-.high-score-buttons button:not(:last-child) {
-    margin-right: 10px;
+.high-score-buttons button:hover {
+    padding: 15px;
+    cursor: pointer;
 }
 
 /* MEDIA QUERIES */
