@@ -116,11 +116,19 @@ button:hover {
 .initials {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
 
-.initials button {
+.submit {
     padding: 5px 10px;
+    font-size: small;
+    margin-left: 10px;
+    margin-bottom: 35px;
+}
+
+.submit:hover {
+    padding: 7px 12px;
     font-size: small;
     margin-left: 10px;
 }
