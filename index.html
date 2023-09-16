@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <a href="#high-scores">View High Scores</a>
+        <a id="high-scores">View High Scores</a>
         <p class="timer"></p>
     </header>
 
@@ -26,12 +26,22 @@
         <section id="end-quiz">
             <h3>Quiz Complete!</h3>
             <p>Your final score is <span class="final-score"></span>.</p>
-            <div class="initials">
-                <p>Enter initials: <input type="text" id="user-initials"></p>
-                <a href="high-score.html"><button>Submit</button></a>
-            </div>
+            <form class="initials">
+                <label for="user-initials">Enter initials:</label>
+                <input type="text" id="user-initials">
+                <button class="submit" type="submit">Submit</button>
+            </form>
         </section>
         <p class="answer-result"></p>
+
+        <section class="high-scores">
+            <h1>High Scores:</h1>
+            <ol class="high-score-list"></ol>
+            <div class="high-score-buttons">
+                <a href="index.html"><button>Return To Quiz</button></a>
+                <button id="clear-scores">Clear High Scores</button>
+            </div>
+        </section>
     </main>
 
     <script src="js/script.js"></script>
